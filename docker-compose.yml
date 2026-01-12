@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # Gestión de contenedores
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: always
+    ports:
+      - "9443:9443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/var/data
+
+  # Monitoreo de telemetría (Raspberry Pi 5)
+  netdata:
+    image: netdata/netdata:latest
+    container_name: netdata
+    restart: always
+    ports:
+      - "19999:19999"
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - netdataconfig:/etc/netdata
+      - netdatalib:/var/lib/netdata
+      - netdatacache:/var/cache/netdata
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /etc/os-release:/host/etc/os-release:ro
+
+  # Filtro de red y DNS
+  pihole:
+    image: pihole/pihole:latest
+    container_name: pihole
+    restart: always
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80/tcp"
+    environment:
+      TZ: 'Europe/Madrid'
+      WEBPASSWORD: 'tu_password_aqui'
+    volumes:
+      - './etc-pihole:/etc/pihole'
+      - './etc-dnsmasq.d:/etc/dnsmasq.d'
+
+volumes:
+  portainer_data:
+  netdataconfig:
+  netdatalib:
+  netdatacache:
