@@ -6,7 +6,7 @@
 
 ¡Hola! Soy un estudiante de ciberseguridad construyendo este laboratorio para aprender y demostrar mis habilidades en monitoreo y defensa. Este repositorio documenta mi progreso transformando una Raspberry Pi 5 en un SOC compacto.
 
-## 📋 Tabla de Contenidos
+##  Tabla de Contenidos
 - [Resumen de la Fase 1](#resumen-de-la-fase-1)
 - [Stack Tecnológico](#stack-tecnológico)
 - [Escenario de Pruebas](#escenario-de-pruebas)
@@ -41,7 +41,7 @@ En esta primera etapa, he transformado una **Raspberry Pi 5 (16GB RAM)** en un C
 
 ---
 
-### 📊 Evidencia del Laboratorio Operativo
+###  Evidencia del Laboratorio Operativo
 
 | Servicio | Visualización |
 | :--- | :--- |
@@ -57,7 +57,7 @@ En esta primera etapa, he transformado una **Raspberry Pi 5 (16GB RAM)** en un C
 - Raspberry Pi 5 (o equivalente) con Ubuntu Server instalado.
 - Acceso SSH configurado.
 
-### 1. 📦 Gestión de Servicios mediante Docker
+### 1.  Gestión de Servicios mediante Docker
 
 Utilizo **Portainer** como interfaz de orquestación para gestionar el ciclo de vida de los contenedores en el nodo `soc-master`. Actualmente, el stack incluye servicios críticos de seguridad y monitoreo:
 
@@ -65,7 +65,7 @@ Utilizo **Portainer** como interfaz de orquestación para gestionar el ciclo de 
 *   **Monitoreo (Netdata):** Visualización de métricas de rendimiento.
 *   **Filtrado DNS (Pi-hole):** Control de tráfico de red.
 
-> 📌 **Estado actual:** El stack está desplegado y operativo.
+>  **Estado actual:** El stack está desplegado y operativo.
 > **Próxima fase:** Optimización de la persistencia de datos y refinamiento de alertas.
 
 #### Instalación Unificada (Docker Compose)
@@ -87,7 +87,7 @@ docker-compose up -d
 
 ### 2. Wazuh (SIEM)
 
-#### 🛠️ Implementación de Wazuh (Bare Metal / Sistema)
+####  Implementación de Wazuh (Bare Metal / Sistema)
 A diferencia de otros servicios del laboratorio que corren en Docker (como Pi-hole o Netdata), el stack de Wazuh ha sido instalado directamente sobre el sistema operativo para maximizar el rendimiento y la estabilidad, permitiendo una integración profunda con los recursos de la Raspberry Pi 5.
 
 Para instalar Wazuh en este modo, se recomienda seguir la [documentación oficial de instalación asistida](https://documentation.wazuh.com/current/installation-guide/wazuh-server/step-by-step.html).
@@ -99,7 +99,7 @@ Netdata ofrece métricas en tiempo real con muy bajo consumo de recursos. **Este
 Si necesitas modificar la configuración, los volúmenes están mapeados en el archivo compose.
 
 
-### 4. 🛡️ Control de Tráfico y Privacidad DNS (Pi-hole)
+### 4.  Control de Tráfico y Privacidad DNS (Pi-hole)
 
 He implementado **Pi-hole** para actuar como el primer escudo de la red del laboratorio. Su función es interceptar consultas DNS maliciosas y bloquear telemetría no deseada antes de que llegue a los endpoints.
 
@@ -107,13 +107,13 @@ He implementado **Pi-hole** para actuar como el primer escudo de la red del labo
 *   Bloqueo basado en listas de reputación (74,000+ dominios).
 *   Dashboard centralizado para auditoría de tráfico en tiempo real.
 
-> ⚠️ **Desafío técnico detectado:** Actualmente se observa un bajo volumen de consultas bloqueadas. Se está trabajando en la reconfiguración del DHCP/DNS en el router principal para asegurar que todo el tráfico del laboratorio pase obligatoriamente por este nodo.
+>  **Desafío técnico detectado:** Actualmente se observa un bajo volumen de consultas bloqueadas. Se está trabajando en la reconfiguración del DHCP/DNS en el router principal para asegurar que todo el tráfico del laboratorio pase obligatoriamente por este nodo.
 
 **Despliegue:**
 
 Este servicio está incluido en el `docker-compose.yml`. Asegúrate de configurar la variable `WEBPASSWORD` en el archivo antes de desplegar, o busca la contraseña en los logs si no la definiste.
 
-> ⚠️ **Solución de Problemas (Ubuntu/Debian):**
+>  **Solución de Problemas (Ubuntu/Debian):**
 > Si el contenedor falla por "Port 53 already in use", es probable que `systemd-resolved` esté ocupando el puerto. Para solucionarlo:
 > ```bash
 > sudo systemctl stop systemd-resolved
