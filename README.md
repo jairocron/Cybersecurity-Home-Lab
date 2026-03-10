@@ -1,146 +1,164 @@
-# Cybersecurity Home Lab - Fase 1: SOC con Raspberry Pi 5
+# 🔐 Cybersecurity Home Lab
 
-![Status](https://img.shields.io/badge/Status-Active-brightgreen)
-![OS](https://img.shields.io/badge/OS-Ubuntu%20Server-orange)
-![Docker](https://img.shields.io/badge/Containerization-Docker-blue)
+[![Estado](https://img.shields.io/badge/Estado-Activo-brightgreen)](https://github.com/jairocron/Cybersecurity-Home-Lab)
+[![OS](https://img.shields.io/badge/OS-Ubuntu%20Server-orange)](https://ubuntu.com/server)
+[![Docker](https://img.shields.io/badge/Contenedores-Docker-blue)](https://www.docker.com)
+[![Wazuh](https://img.shields.io/badge/SIEM-Wazuh-blue)](https://wazuh.com)
 
-¡Hola! Soy un estudiante de ciberseguridad construyendo este laboratorio para aprender y demostrar mis habilidades en monitoreo y defensa. Este repositorio documenta mi progreso transformando una Raspberry Pi 5 en un SOC compacto.
+> Laboratorio de ciberseguridad construido desde cero para aprender seguridad ofensiva y defensiva de manera práctica. Documentado como evidencia de aprendizaje real.
 
-##  Tabla de Contenidos
-- [Resumen de la Fase 1](#resumen-de-la-fase-1)
-- [Stack Tecnológico](#stack-tecnológico)
-- [Escenario de Pruebas](#escenario-de-pruebas)
-- [Evidencia del Laboratorio Operativo](#evidencia-del-laboratorio-operativo)
-- [Cómo replicar este laboratorio](#cóme-replicar-este-laboratorio)
-  - [Prerrequisitos](#prerrequisitos)
-  - [1. Gestión de Servicios Mediante Docker](#1-gestión-de-servicios-mediante-docker)
-  - [2. Wazuh (SIEM)](#2-wazuh-siem)
-  - [3. Netdata (Monitoreo)](#3-netdata-monitoreo)
-  - [4. Control de Tráfico y Privacidad DNS (Pi-hole)](#4-️-control-de-tráfico-y-privacidad-dns-pi-hole)
-  - [5. Honeypot (Opcional)](#5-honeypot-opcional)
-- [Acceso y Uso](#acceso-y-uso)
+Hola, soy **jairocron** ([@jairocron](https://github.com/jairocron)), estudiante de ciberseguridad de **Honduras** 🇭🇳, aprendiendo seguridad ofensiva y defensiva de manera autodidacta con enfoque en entornos empresariales reales. Este repositorio documenta cada fase de mi proceso de aprendizaje.
 
 ---
 
-## Resumen de la Fase 1
+## 📋 Tabla de Contenidos
 
-En esta primera etapa, he transformado una **Raspberry Pi 5 (16GB RAM)** en un Centro de Operaciones de Seguridad (SOC) ligero utilizando contenedores.
+- [¿Por qué este laboratorio?](#-por-qué-este-laboratorio)
+- [Hardware](#-hardware)
+- [Fase 1 — SOC con Raspberry Pi 5](#-fase-1--soc-con-raspberry-pi-5)
+- [Próximas Fases](#-próximas-fases)
+- [Cómo replicar este laboratorio](#-cómo-replicar-este-laboratorio)
+
+---
+
+## ❓ ¿Por qué este laboratorio?
+
+La ciberseguridad se aprende haciendo, no solo leyendo. Este lab existe para:
+
+- Practicar ataques y defensas en un entorno **controlado y legal**
+- Entender cómo funcionan los entornos empresariales reales
+- Documentar el proceso como evidencia de habilidades prácticas
+- Construir una base sólida orientada a seguridad ofensiva
+
+---
+
+## 🖥️ Hardware
+
+| Dispositivo | Specs | Rol actual |
+|---|---|---|
+| Raspberry Pi 5 | 16GB RAM, SSD 256GB | SOC — Wazuh, Pi-hole, servicios |
+| PC Principal | AMD Ryzen, RTX 4060 | Estación de trabajo principal |
+
+---
+
+## 📡 Fase 1 — SOC con Raspberry Pi 5
+
+La primera fase fue transformar una Raspberry Pi 5 en un SOC (Centro de Operaciones de Seguridad) ligero y funcional.
+
+### Arquitectura
+
+```
+Red doméstica (192.168.1.x)
+    │
+    └── Raspberry Pi 5 (soc-master)
+            ├── Wazuh SIEM      (bare metal)
+            ├── Pi-hole DNS     (Docker)
+            ├── Portainer       (Docker)
+            ├── Netdata         (Docker)
+            └── Tailscale       (acceso remoto seguro)
+```
 
 ### Stack Tecnológico
-* **S.O.:** Ubuntu Server (64-bit)
-* **Gestión:** Docker & Portainer
-* **SIEM/XDR:** WazuhManager (Bare Metal/System)
-* **Monitoreo de Sistema:** Netdata (Docker)
-* **Red & DNS:** Pi-hole (Docker)
-* **Defensa Activa:** Honeypot (configurado en la RPi)
 
-### Escenario de Pruebas
-1. **PC Windows:** Monitorizada mediante agente de Wazuh y Netdata.
-2. **Kali Linux (VM):** Utilizada como máquina de ataque para realizar escaneos y pruebas contra el Honeypot.
-3. **Wazuh:** Centraliza todas las alertas de seguridad para su análisis.
+| Servicio | Implementación | Puerto | Función |
+|---|---|---|---|
+| **Wazuh** | Bare Metal | 443 | SIEM — centraliza y analiza alertas |
+| **Pi-hole** | Docker | 8080 | DNS filtering — 74,000+ dominios bloqueados |
+| **Portainer** | Docker | 9443 | Gestión visual de contenedores |
+| **Netdata** | Docker | 19999 | Monitoreo de sistema en tiempo real |
+| **Tailscale** | Sistema | — | Acceso remoto cifrado |
+
+### Evidencia del Lab Operativo
+
+| Servicio | Captura |
+|---|---|
+| **Wazuh SIEM** | ![Wazuh](img/wazuh-threat-hunting.png) |
+| **Pi-hole DNS** | ![Pi-hole](img/pihole-dns-sinkhole.png) |
+| **Portainer** | ![Portainer](img/portainer-stack-core.png) |
+
+### Desafíos técnicos resueltos
+
+- ✅ Conflicto de puerto 53 con `systemd-resolved` — resuelto desactivando el servicio
+- ✅ Certificado SSL de Wazuh con IP incorrecta — resuelto regenerando certificados
+- ✅ Actualización de Immich sin pérdida de datos vía Portainer
+- ✅ Pi-hole bloqueando dominios de iCloud y banca — resuelto con whitelist selectiva
 
 ---
 
-###  Evidencia del Laboratorio Operativo
+## 🗺️ Próximas Fases
 
-| Servicio | Visualización |
-| :--- | :--- |
-| **SIEM Wazuh** | ![Wazuh](./img/wazuh-threat-hunting.png) |
-| **DNS Security** | ![Pi-hole](./img/pihole-dns-sinkhole.png) |
-| **Stack Docker** | ![Portainer](./img/portainer-stack-core.png) |
+El laboratorio está en construcción activa. Las siguientes fases se irán documentando a medida que se implementen.
+
+### Fase 2 — Entorno Empresarial con Proxmox *(en construcción)*
+- Hypervisor Proxmox con red segmentada
+- Firewall pfSense
+- Múltiples VMs en red aislada
+
+### Fase 3 — Active Directory *(planificada)*
+- Dominio Windows Server 2022
+- Usuarios, grupos y políticas
+- Escenario de ataques y detección
+
+### Fase 4 — Seguridad Ofensiva *(planificada)*
+- Ataques de Active Directory desde Kali Linux
+- AS-REP Roasting, Kerberoasting, BloodHound
+- Detección de ataques en Wazuh
 
 ---
 
-## Cómo replicar este laboratorio
+## 🔧 Cómo replicar este laboratorio
 
 ### Prerrequisitos
-- Raspberry Pi 5 (o equivalente) con Ubuntu Server instalado.
-- Acceso SSH configurado.
 
-### 1.  Gestión de Servicios mediante Docker
+- Raspberry Pi 5 (o equivalente) con Ubuntu Server instalado
+- Acceso SSH configurado
+- Docker y Docker Compose instalados
 
-Utilizo **Portainer** como interfaz de orquestación para gestionar el ciclo de vida de los contenedores en el nodo `soc-master`. Actualmente, el stack incluye servicios críticos de seguridad y monitoreo:
+### 1. Clonar el repositorio
 
-*   **Honeypot (Cowrie):** Captura de intentos de intrusión por SSH.
-*   **Monitoreo (Netdata):** Visualización de métricas de rendimiento.
-*   **Filtrado DNS (Pi-hole):** Control de tráfico de red.
+```bash
+git clone https://github.com/jairocron/Cybersecurity-Home-Lab.git
+cd Cybersecurity-Home-Lab
+```
 
->  **Estado actual:** El stack está desplegado y operativo.
-> **Próxima fase:** Optimización de la persistencia de datos y refinamiento de alertas.
+### 2. Configurar variables de entorno
 
-#### Instalación Unificada (Docker Compose)
+```bash
+cp .env.example .env
+nano .env  # edita con tus valores
+```
 
-He consolidado la gestión de Portainer, Netdata y Pi-hole en un único archivo `docker-compose.yml`.
-
-1. Clona el repositorio o crea el archivo `docker-compose.yml`.
-2. Levanta todos los servicios de soporte:
+### 3. Levantar los servicios
 
 ```bash
 docker-compose up -d
 ```
 
-> **Nota:** El archivo `docker-compose.yml` incluido despliega:
-> *   Portainer (Puerto 9443)
-> *   Netdata (Puerto 19999)
-> *   Pi-hole (Puertos 53 y 80)
+Servicios desplegados:
+- **Portainer** → `https://<IP-RPi>:9443`
+- **Netdata** → `http://<IP-RPi>:19999`
+- **Pi-hole** → `http://<IP-RPi>:8080/admin`
 
+### 4. Wazuh (instalación separada)
 
-### 2. Wazuh (SIEM)
+Wazuh corre directamente sobre el sistema operativo para mayor rendimiento. Seguir la [documentación oficial](https://documentation.wazuh.com/current/installation-guide/wazuh-server/step-by-step.html).
 
-####  Implementación de Wazuh (Bare Metal / Sistema)
-A diferencia de otros servicios del laboratorio que corren en Docker (como Pi-hole o Netdata), el stack de Wazuh ha sido instalado directamente sobre el sistema operativo para maximizar el rendimiento y la estabilidad, permitiendo una integración profunda con los recursos de la Raspberry Pi 5.
+### Solución de problemas comunes
 
-Para instalar Wazuh en este modo, se recomienda seguir la [documentación oficial de instalación asistida](https://documentation.wazuh.com/current/installation-guide/wazuh-server/step-by-step.html).
-
-### 3. Netdata (Monitoreo)
-
-Netdata ofrece métricas en tiempo real con muy bajo consumo de recursos. **Este servicio se despliega automáticamente con el docker-compose principal.**
-
-Si necesitas modificar la configuración, los volúmenes están mapeados en el archivo compose.
-
-
-### 4.  Control de Tráfico y Privacidad DNS (Pi-hole)
-
-He implementado **Pi-hole** para actuar como el primer escudo de la red del laboratorio. Su función es interceptar consultas DNS maliciosas y bloquear telemetría no deseada antes de que llegue a los endpoints.
-
-**Capacidades configuradas:**
-*   Bloqueo basado en listas de reputación (74,000+ dominios).
-*   Dashboard centralizado para auditoría de tráfico en tiempo real.
-
->  **Desafío técnico detectado:** Actualmente se observa un bajo volumen de consultas bloqueadas. Se está trabajando en la reconfiguración del DHCP/DNS en el router principal para asegurar que todo el tráfico del laboratorio pase obligatoriamente por este nodo.
-
-**Despliegue:**
-
-Este servicio está incluido en el `docker-compose.yml`. Asegúrate de configurar la variable `WEBPASSWORD` en el archivo antes de desplegar, o busca la contraseña en los logs si no la definiste.
-
->  **Solución de Problemas (Ubuntu/Debian):**
-> Si el contenedor falla por "Port 53 already in use", es probable que `systemd-resolved` esté ocupando el puerto. Para solucionarlo:
-> ```bash
-> sudo systemctl stop systemd-resolved
-> sudo systemctl disable systemd-resolved
-> # Nota: Esto puede afectar la resolución DNS del host si no se configura un DNS alternativo en /etc/resolv.conf
-> ```
-
-
-### 5. Honeypot (Opcional)
-
-Si deseas añadir un honeypot SSH como Cowrie:
-
+**Puerto 53 ocupado por systemd-resolved:**
 ```bash
-docker run -p 2222:2222 -d cowrie/cowrie
+sudo systemctl stop systemd-resolved
+sudo systemctl disable systemd-resolved
 ```
+> Configura un DNS alternativo en `/etc/resolv.conf` después de esto.
 
 ---
 
-## Acceso y Uso
+## 📬 Contacto
 
-Una vez desplegado el stack, puedes acceder a los servicios:
+- GitHub: [@jairocron](https://github.com/jairocron)
+- Correo: jairocron@proton.me
 
-| Servicio | URL | Credenciales por defecto (si aplican) |
-|----------|-----|----------------------------------------|
-| **Portainer** | `https://<IP-RPi>:9443` | Definir en primer inicio |
-| **Wazuh** | `https://<IP-RPi>` | admin / SecretPassword (revisar logs/docs) |
-| **Netdata** | `http://<IP-RPi>:19999` | No requiere auth por defecto |
-| **Pi-hole** | `http://<IP-RPi>:80/admin` | Ver logs (`docker logs pihole`) |
+---
 
-> **Nota:** Reemplaza `<IP-RPi>` con la dirección IP local de tu Raspberry Pi.
+> ⚠️ Todo el contenido de este repositorio es para fines educativos en entornos controlados y legales.
