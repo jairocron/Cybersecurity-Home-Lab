@@ -38,8 +38,7 @@ La ciberseguridad se aprende haciendo, no solo leyendo. Este lab existe para:
 |---|---|---|
 | Raspberry Pi 5 | 16GB RAM, SSD 256GB | SOC — Wazuh, Pi-hole, servicios |
 | PC Principal | AMD Ryzen, RTX 4060 | Estación de trabajo principal |
-| Lenovo ThinkCentre M920q | Intel i5-8500T, 32GB DDR4, 209GB SSD | Hypervisor — Proxmox |
-
+| Lenovo ThinkCentre M920q | Intel i5-8500T, 32GB DDR4, 256GB SSD | Hypervisor — Proxmox |
 ---
 
 ## Fase 1 — SOC con Raspberry Pi 5
@@ -91,9 +90,12 @@ Red doméstica (192.168.1.x)
 El laboratorio está en construcción activa. Las siguientes fases se irán documentando a medida que se implementen.
 
 ### Fase 2 — Entorno Empresarial con Proxmox *(en construcción)*
-- Hypervisor Proxmox con red segmentada
-- Firewall pfSense
-- Múltiples VMs en red aislada
+Transformación de un Lenovo ThinkCentre M920q en un hypervisor
+de laboratorio empresarial con red segmentada.
+
+Proxmox Virtual Environment 9.1 instalado sobre bare metal, con
+dos bridges de red configurados para separar el tráfico doméstico
+del laboratorio aislado.
 
 ### Fase 3 — Active Directory *(planificada)*
 - Dominio Windows Server 2022
