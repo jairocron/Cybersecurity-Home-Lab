@@ -1,4 +1,4 @@
-# 🔐 Cybersecurity Home Lab
+# Cybersecurity Home Lab
 
 [![Estado](https://img.shields.io/badge/Estado-Activo-brightgreen)](https://github.com/jairocron/Cybersecurity-Home-Lab)
 [![OS](https://img.shields.io/badge/OS-Ubuntu%20Server-orange)](https://ubuntu.com/server)
@@ -11,7 +11,7 @@ Hola, soy **jairocron** ([@jairocron](https://github.com/jairocron)), estudiante
 
 ---
 
-## 📋 Tabla de Contenidos
+## Tabla de Contenidos
 
 - [¿Por qué este laboratorio?](#-por-qué-este-laboratorio)
 - [Hardware](#-hardware)
@@ -21,7 +21,7 @@ Hola, soy **jairocron** ([@jairocron](https://github.com/jairocron)), estudiante
 
 ---
 
-## ❓ ¿Por qué este laboratorio?
+## ¿Por qué este laboratorio?
 
 La ciberseguridad se aprende haciendo, no solo leyendo. Este lab existe para:
 
@@ -32,16 +32,17 @@ La ciberseguridad se aprende haciendo, no solo leyendo. Este lab existe para:
 
 ---
 
-## 🖥️ Hardware
+## Hardware
 
 | Dispositivo | Specs | Rol actual |
 |---|---|---|
 | Raspberry Pi 5 | 16GB RAM, SSD 256GB | SOC — Wazuh, Pi-hole, servicios |
 | PC Principal | AMD Ryzen, RTX 4060 | Estación de trabajo principal |
+| Lenovo ThinkCentre M920q | Intel i5-8500T, 32GB DDR4, 209GB SSD | Hypervisor — Proxmox |
 
 ---
 
-## 📡 Fase 1 — SOC con Raspberry Pi 5
+## Fase 1 — SOC con Raspberry Pi 5
 
 La primera fase fue transformar una Raspberry Pi 5 en un SOC (Centro de Operaciones de Seguridad) ligero y funcional.
 
@@ -85,7 +86,7 @@ Red doméstica (192.168.1.x)
 
 ---
 
-## 🗺️ Próximas Fases
+## Próximas Fases
 
 El laboratorio está en construcción activa. Las siguientes fases se irán documentando a medida que se implementen.
 
@@ -106,7 +107,7 @@ El laboratorio está en construcción activa. Las siguientes fases se irán docu
 
 ---
 
-## 🔧 Cómo replicar este laboratorio
+## Cómo replicar este laboratorio
 
 ### Prerrequisitos
 
@@ -154,7 +155,7 @@ sudo systemctl disable systemd-resolved
 
 ---
 
-## 📬 Contacto
+## Contacto
 
 - GitHub: [@jairocron](https://github.com/jairocron)
 - Correo: jairocron@proton.me
