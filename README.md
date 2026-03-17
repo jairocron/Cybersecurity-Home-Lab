@@ -7,7 +7,7 @@
 
 > Laboratorio de ciberseguridad construido desde cero para aprender seguridad ofensiva y defensiva de manera práctica. Documentado como evidencia de aprendizaje real.
 
-Hola, soy **jairocron** ([@jairocron](https://github.com/jairocron)), estudiante de ciberseguridad de **Honduras** 🇭🇳, aprendiendo seguridad ofensiva y defensiva de manera autodidacta con enfoque en entornos empresariales reales. Este repositorio documenta cada fase de mi proceso de aprendizaje.
+Hola, soy estudiante de ciberseguridad de **Honduras** 🇭🇳, aprendiendo seguridad ofensiva y defensiva de manera autodidacta con enfoque en entornos empresariales reales. Este repositorio documenta cada fase de mi proceso de aprendizaje.
 
 ---
 
