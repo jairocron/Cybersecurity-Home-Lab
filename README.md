@@ -78,7 +78,7 @@ Red doméstica (192.168.1.x)
 
 ### Desafíos técnicos resueltos
 
-- ✅ Conflicto de puerto 53 con `systemd-resolved` — resuelto desactivando el servicio
+-  Conflicto de puerto 53 con `systemd-resolved` — resuelto desactivando el servicio
 - ✅ Certificado SSL de Wazuh con IP incorrecta — resuelto regenerando certificados
 - ✅ Actualización de Immich sin pérdida de datos vía Portainer
 - ✅ Pi-hole bloqueando dominios de iCloud y banca — resuelto con whitelist selectiva
@@ -112,9 +112,9 @@ el tráfico entrante y saliente del laboratorio.
 ![pfSense dashboard](img/pfsense-dashboard.png)
 
 #### Desafíos técnicos resueltos
-✅ Configuración de interfaces WAN/LAN en pfSense apuntando a vmbr0/vmbr1
-✅ Reglas de firewall para aislar el tráfico del laboratorio
-✅ Acceso controlado desde red doméstica hacia red aislada
+✅ Configuración de interfaces WAN/LAN en pfSense apuntando a vmbr0/vmbr1  
+✅ Reglas de firewall para aislar el tráfico del laboratorio  
+✅ Acceso controlado desde red doméstica hacia red aislada  
 
 ### Fase 3 — Active Directory *(planificada)*
 - Dominio Windows Server 2022
