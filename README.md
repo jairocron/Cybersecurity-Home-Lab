@@ -97,6 +97,25 @@ Proxmox Virtual Environment 9.1 instalado sobre bare metal, con
 dos bridges de red configurados para separar el tráfico doméstico
 del laboratorio aislado.
 
+### pfSense — Firewall y segmentación de red
+
+pfSense desplegado como VM en Proxmox para segmentar el tráfico
+entre la red doméstica y la red aislada de laboratorio.
+
+Dos bridges configurados en Proxmox:
+- vmbr0 — red doméstica, conectada al router principal
+- vmbr1 — red aislada de laboratorio, sin acceso a internet directo
+
+pfSense actúa como gateway entre ambos segmentos, controlando
+el tráfico entrante y saliente del laboratorio.
+
+![pfSense dashboard](img/pfsense-dashboard.png)
+
+#### Desafíos técnicos resueltos
+✅ Configuración de interfaces WAN/LAN en pfSense apuntando a vmbr0/vmbr1
+✅ Reglas de firewall para aislar el tráfico del laboratorio
+✅ Acceso controlado desde red doméstica hacia red aislada
+
 ### Fase 3 — Active Directory *(planificada)*
 - Dominio Windows Server 2022
 - Usuarios, grupos y políticas
