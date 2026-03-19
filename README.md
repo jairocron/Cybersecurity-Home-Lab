@@ -116,10 +116,33 @@ el tráfico entrante y saliente del laboratorio.
 ✅ Reglas de firewall para aislar el tráfico del laboratorio  
 ✅ Acceso controlado desde red doméstica hacia red aislada  
 
-### Fase 3 — Active Directory *(planificada)*
-- Dominio Windows Server 2022
-- Usuarios, grupos y políticas
-- Escenario de ataques y detección
+### DC01 — Domain Controller
+
+Windows Server 2022 desplegado como controlador de dominio principal
+del laboratorio. Dominio **corp.local** configurado con estructura
+empresarial real.
+
+Roles instalados:
+- AD DS — Active Directory Domain Services
+- DNS — resolución de nombres interna del dominio
+
+Estructura del dominio:
+- OUs personalizadas: Usuarios, Grupos, ServiceAccounts
+- Usuarios de dominio con diferentes niveles de privilegio
+- Políticas de grupo aplicadas
+
+![Server Manager con roles AD DS y DNS](img/dc01-server-manager.png)
+![Active Directory Users and Computers](img/dc01-active-directory.png)
+![Usuarios del dominio corp.local](img/dc01-domain-users.png)
+
+### Fase 3 — Active Directory
+
+Dominio Windows Server 2022 operativo con estructura empresarial simulada.
+
+- Dominio **corp.local** configurado y operativo
+- Usuarios de dominio con diferentes roles y privilegios
+- OUs: Usuarios, Grupos, ServiceAccounts
+- Políticas de grupo aplicadas
 
 ### Fase 4 — Seguridad Ofensiva *(planificada)*
 - Ataques de Active Directory desde Kali Linux
