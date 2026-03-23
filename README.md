@@ -135,6 +135,19 @@ Estructura del dominio:
 ![Active Directory Users and Computers](img/dc01-active-directory.png)
 ![Usuarios del dominio corp.local](img/dc01-domain-users.png)
 
+### Configuración del dominio corp.local
+
+Dominio Active Directory configurado con nivel funcional
+Windows Server 2016, operativo como forest raíz único.
+
+Características del dominio:
+- Forest y dominio raíz: **corp.local**
+- PDC Emulator: DC01.corp.local
+- Modo de dominio: Windows2016Domain
+- Replicación configurada en DC01 como servidor único
+
+![Configuración del dominio Get-ADDomain](img/dc01-get-addomain.png)
+
 ### Fase 3 — Active Directory
 
 Dominio Windows Server 2022 operativo con estructura empresarial simulada.
