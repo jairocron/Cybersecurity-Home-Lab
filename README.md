@@ -162,6 +162,24 @@ empresarial real.
 ![Workstations unidas al dominio](img/ad-computers.png)
 ![WS01 unida a corp.local](img/ws01-domain-joined.png)
 
+### Wazuh — Monitorización y detección
+
+Agentes Wazuh desplegados en los endpoints del dominio para
+centralizar la monitorización y detección de amenazas en tiempo real.
+
+Agentes activos:
+- DC01 — Windows Server 2022 (controlador de dominio)
+- CORP-WS01 — Windows 10 Pro (workstation usuario)
+- CORP-WS02 — Windows 10 Pro (workstation usuario)
+
+![Agentes Wazuh activos](img/wazuh-agents.png)
+![Dashboard Wazuh](img/wazuh-dashboard.png)
+
+#### Desafíos técnicos resueltos
+
+✅ Agentes desplegados en endpoints Windows del dominio  
+✅ Comunicación entre red aislada y Wazuh Manager en Raspberry Pi  
+✅ Monitorización en tiempo real de DC01, WS01 y WS02
 ### Fase 3 — Active Directory
 
 Dominio Windows Server 2022 operativo con estructura empresarial simulada.
