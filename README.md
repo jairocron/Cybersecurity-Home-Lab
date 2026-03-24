@@ -148,6 +148,20 @@ Características del dominio:
 
 ![Configuración del dominio Get-ADDomain](img/dc01-get-addomain.png)
 
+### WS01 y WS02 — Workstations del dominio
+
+Dos workstations Windows 10 Pro desplegadas y unidas al dominio
+corp.local, simulando equipos de usuarios finales en un entorno
+empresarial real.
+
+- CORP-WS01 — workstation usuario estándar del dominio
+- CORP-WS02 — workstation usuario con privilegios elevados
+- Ambas registradas en Active Directory bajo Computers
+- Agentes de monitorización configurados
+
+![Workstations unidas al dominio](img/ad-computers.png)
+![WS01 unida a corp.local](img/ws01-domain-joined.png)
+
 ### Fase 3 — Active Directory
 
 Dominio Windows Server 2022 operativo con estructura empresarial simulada.
