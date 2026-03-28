@@ -97,6 +97,23 @@ Proxmox Virtual Environment 9.1 instalado sobre bare metal, con
 dos bridges de red configurados para separar el tráfico doméstico
 del laboratorio aislado.
 
+### Configuración de red — Linux Bridges
+
+Dos bridges de red configurados en Proxmox para segmentar
+el tráfico entre la red doméstica y el laboratorio aislado.
+
+| Bridge | Tipo | Función |
+|---|---|---|
+| vmbr0 | Linux Bridge | Red doméstica — conecta Proxmox al router principal |
+| vmbr1 | Linux Bridge | Red aislada — laboratorio sin acceso directo a internet |
+
+vmbr1 tiene habilitado IP forwarding y NAT para permitir
+salida a internet controlada desde el laboratorio a través
+de pfSense.
+
+![Configuración de bridges en Proxmox](img/proxmox-network-bridges.png)
+
+
 ### pfSense — Firewall y segmentación de red
 
 pfSense desplegado como VM en Proxmox para segmentar el tráfico
